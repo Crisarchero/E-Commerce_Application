@@ -10,15 +10,19 @@ namespace E_Commerce_Application.Controllers
     public class CategoryController : Controller
     {
 
-    private readonly CategoryService _categoryService;
+        private readonly CategoryService _categoryService;
 
 
-    public CategoryController(CategoryService categoryService) =>
-        _categoryService = categoryService;
+        public CategoryController(CategoryService categoryService) =>
+            _categoryService = categoryService;
 
-    [HttpGet]
-    public async Task<List<Category>> Get() =>
-        await _categoryService.GetAsync();
+        [HttpGet]
+        public async Task<IActionResult> Get(){
+            var categoryList = await _categoryService.GetAsync();
+            ViewBag.Categories = categoryList;
+            return View("Index");
+        }
+  
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<Category>> Get(string id)
@@ -29,7 +33,7 @@ namespace E_Commerce_Application.Controllers
         {
             return NotFound();
         }
-
+        ViewBag.Category = category;
         return category;
     }
 
@@ -72,5 +76,9 @@ namespace E_Commerce_Application.Controllers
 
         return NoContent();
     }
+      public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

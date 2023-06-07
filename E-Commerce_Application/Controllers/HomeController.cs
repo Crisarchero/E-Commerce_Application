@@ -1,6 +1,8 @@
 ﻿using E_Commerce_Application.Models;
+using E_Commerce_Application.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace E_Commerce_Application.Controllers
 {
@@ -27,7 +29,7 @@ namespace E_Commerce_Application.Controllers
             return View();
         }
 
-
+     
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
