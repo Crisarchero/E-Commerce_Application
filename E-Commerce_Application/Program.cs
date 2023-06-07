@@ -1,13 +1,19 @@
 using E_Commerce_Application.Data;
+using E_Commerce_Application.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ShopDbContext>(options=> 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+builder.Services.AddControllersWithViews()
+  .AddJsonOptions(
+		options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+builder.Services.Configure<BakeryShopSettings>(
+	builder.Configuration.GetSection("BakeryDatabase"));
 
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<CategoryService>();
+builder.Services.AddSingleton<ReviewService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

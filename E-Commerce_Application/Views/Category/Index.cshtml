@@ -1,0 +1,12 @@
+﻿
+@{ ViewData["Title"] = "Browse Categories";}
+	<div class="text-center">
+		<h1 class="display-4">Categories</h1>
+	@{
+		foreach (Category category in ViewBag.Categories)
+		{
+			<h2>@category.Name</h2>
+		}
+	 }
+	</div>
+
