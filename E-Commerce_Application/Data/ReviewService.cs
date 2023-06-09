@@ -26,7 +26,7 @@ namespace E_Commerce_Application.Data
 		await _reviewCollection.Find(_ => true).ToListAsync();
 
 		public async Task<Review?> GetAsync(string id) =>
-			await _reviewCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+			await _reviewCollection.Find(x => x.ProductID == id).FirstOrDefaultAsync();
 
 		public async Task CreateAsync(Review newReview) =>
 			await _reviewCollection.InsertOneAsync(newReview);
@@ -34,7 +34,7 @@ namespace E_Commerce_Application.Data
 		public async Task UpdateAsync(string id, Review updatedReview) =>
 			await _reviewCollection.ReplaceOneAsync(x => x.Id == id, updatedReview);
 
-		public async Task ReviewAsync(string id) =>
+		public async Task RemoveAsync(string id) =>
 			await _reviewCollection.DeleteOneAsync(x => x.Id == id);
 	}
 }

@@ -6,7 +6,7 @@ using E_Commerce_Application.Models;
 namespace E_Commerce_Application.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("Menu/[controller]")]
     public class CategoryController : Controller
     {
 
@@ -65,9 +65,9 @@ namespace E_Commerce_Application.Controllers
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var book = await _categoryService.GetAsync(id);
+        var category = await _categoryService.GetAsync(id);
 
-        if (book is null)
+        if (category is null)
         {
             return NotFound();
         }

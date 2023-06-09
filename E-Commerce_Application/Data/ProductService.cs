@@ -22,19 +22,15 @@ namespace E_Commerce_Application.Data
 			_productCollection = mongoDatabase.GetCollection<Product>(
 				bakeryShopSettings.Value.ProductCollectionName);
 
-			_categoryCollection = mongoDatabase.GetCollection<Category>(
-				bakeryShopSettings.Value.CategoryCollectionName);
-
-			_reviewCollection = mongoDatabase.GetCollection<Review>(
-				bakeryShopSettings.Value.ReviewCollectionName);
 		}
 
-		//Product
 		public async Task<List<Product>> GetAsync() =>
 			await _productCollection.Find(_ => true).ToListAsync();
 
 		public async Task<Product?> GetAsync(string id) =>
 			await _productCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+		public async Task<List<Product>> GetByCatAsync(string id) =>
+			await _productCollection.Find(x => x.CategoryID == id).ToListAsync();
 
 		public async Task CreateAsync(Product newProduct) =>
 			await _productCollection.InsertOneAsync(newProduct);

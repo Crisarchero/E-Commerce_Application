@@ -16,7 +16,7 @@ namespace E_Commerce_Application.Models
 		public string UserName { get; set; } = null!;
 
         [ForeignKey("Product")]
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
         public Product Product { get; set; }
 
         public int Rating { get; set; }
