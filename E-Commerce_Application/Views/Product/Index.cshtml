@@ -1,0 +1,43 @@
+﻿@{
+	ViewData["Title"] = "Browse";
+}
+<div class="container-fluid ">
+		
+		<div class="row">
+			
+		<div class="col-2 p-2 border-end border-primary ">
+			<ul class="list-group list-unstyled">
+
+				@foreach (Category category in ViewBag.Categories)
+				{
+					<li><a href="/Menu/Products/@category.Id">@category.Name</a></li>
+				}
+
+			</ul>
+		</div>
+
+		<div class="d-flex flex-row p-2 col">
+			<h2></h2>
+			@if(ViewBag.Products == null)
+			{
+				<p class="w-100 display-3 text-center">Sorry! There are no products in this category right now!</p>
+			}
+			else{
+				@foreach (Product product in ViewBag.Products)
+				{
+					<figure class="w-25">
+						<a href = "/Menu/ProductDetail/@product.Id">
+							<img src="~/Images/@product.ImgName" alt="@product.Name" class="img-thumbnail">
+						</a>				
+					</figure>
+				}
+			}
+			
+
+		</div>
+
+
+		
+	</div>
+</div>
+

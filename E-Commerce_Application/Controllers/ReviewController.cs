@@ -35,7 +35,7 @@ namespace E_Commerce_Application.Controllers
 		//Editing a review.
 		public async Task<IActionResult> Update(string id, Review updatedReview)
 		{
-			var review = await _reviewService.GetAsync(id);
+			var review = await _reviewService.GetAsyncOne(id);
 
 			if (review is null)
 			{

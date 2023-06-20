@@ -8,8 +8,6 @@ namespace E_Commerce_Application.Data
 	{
 
 		private readonly IMongoCollection<Product> _productCollection;
-		private readonly IMongoCollection<Category> _categoryCollection;
-		private readonly IMongoCollection<Review> _reviewCollection;
 
 		public ProductService(
 			IOptions<BakeryShopSettings> bakeryShopSettings)

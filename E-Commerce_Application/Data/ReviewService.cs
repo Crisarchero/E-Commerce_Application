@@ -25,8 +25,12 @@ namespace E_Commerce_Application.Data
 		public async Task<List<Review>> GetAsync() =>
 		await _reviewCollection.Find(_ => true).ToListAsync();
 
-		public async Task<Review?> GetAsync(string id) =>
+		public async Task<List<Review>> GetAsync(string id) =>
+			await _reviewCollection.Find(x => x.ProductID == id).ToListAsync();
+
+		public async Task<Review?> GetAsyncOne(string id) =>
 			await _reviewCollection.Find(x => x.ProductID == id).FirstOrDefaultAsync();
+
 
 		public async Task CreateAsync(Review newReview) =>
 			await _reviewCollection.InsertOneAsync(newReview);

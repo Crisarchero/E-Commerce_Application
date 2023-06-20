@@ -6,7 +6,7 @@
 	@{
 		foreach (Category category in ViewBag.Categories)
 		{
-			<h2>@category.Name</h2>
+			<a href ="/Menu/Products/@category.Id">@category.Name</a>
 		}
 	}
 </div>

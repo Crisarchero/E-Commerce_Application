@@ -1,0 +1,24 @@
+﻿@{
+	ViewData["Title"] = "Details";
+	var product = ViewBag.Product;
+
+}
+<div>
+	<img src ="~/Images/@product.ImgName" alt=""/>
+	<h2>@product.Name</h2>
+</div>
+
+<div>
+	<h3>Reviews</h3>
+	<ul>
+		@foreach (Review review in ViewBag.Reviews)
+		{
+			<li>
+				<h4>@review.UserName</h4>
+				<p>
+					@review.CommentText
+				</p>
+			</li>
+		}
+	</ul>
+</div>

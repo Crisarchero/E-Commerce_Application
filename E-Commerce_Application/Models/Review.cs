@@ -11,8 +11,8 @@ namespace E_Commerce_Application.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-        [BsonElement("Name")]
-		[JsonPropertyName("Name")]
+        [BsonElement("UserName")]
+		[JsonPropertyName("UserName")]
 		public string UserName { get; set; } = null!;
 
         [ForeignKey("Product")]

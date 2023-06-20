@@ -5,17 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce_Application.Controllers
 {
 	[ApiController]
-	[Route("Menu/[controller]")]
+	[Route("Menu/Products")]
 	public class ProductController : Controller
     {
 		private readonly ProductService _productService;
 		private readonly ReviewService _reviewService;
+		private readonly CategoryService _categoryService;
 
 
-		public ProductController(ProductService productService,ReviewService reviewService)
+		public ProductController(ProductService productService,ReviewService reviewService, CategoryService cateogryService)
 		{
+			//Including all the services so it's easier to work with multiple at once.
 			_productService = productService;
 			_reviewService = reviewService;
+			_categoryService = cateogryService;
 		}
 
 
@@ -25,7 +28,9 @@ namespace E_Commerce_Application.Controllers
 		public async Task<ActionResult> Get()
 		{
 			var productList = await _productService.GetAsync();
+			var categoryList = await _categoryService.GetAsync();
 			ViewBag.Products = productList;
+			ViewBag.Category = categoryList;
 			return View("Index");
 		}
 
@@ -33,27 +38,27 @@ namespace E_Commerce_Application.Controllers
 		[HttpGet("{id:length(24)}")]
 		public async Task<ActionResult> GetByCat(string id)
 		{
+			
 			var productList = await _productService.GetByCatAsync(id);
-			ViewBag.Products = productList;
+			var categoryList = await _categoryService.GetAsync();
+			if(productList.Count == 0)
+			{
+				ViewBag.Prodcuts = null;
+			}
+			else
+			{
+				ViewBag.Products = productList;
+			}
+			
+			ViewBag.Categories = categoryList;
+
 			return View("Index");
 		}
 
 
 		//A method to return a single product with its reviews.
 
-		[HttpGet("Details/{id:length(24)}")]
-		public async Task<ActionResult<Product>> Get(string id)
-		{
-			var product = await _productService.GetAsync(id);
-			var reviews = await _reviewService.GetAsync(id); 
-			if (product is null)
-			{
-				return NotFound();
-			}
-			ViewBag.Product = product;
-			ViewBag.Reviews = reviews;
-			return View();
-		}
+		
 
 		//Adding a new product.
 		public async Task<IActionResult> Post(Product newProduct)
