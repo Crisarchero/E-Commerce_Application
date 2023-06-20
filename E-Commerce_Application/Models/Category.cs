@@ -15,7 +15,10 @@ namespace E_Commerce_Application.Models
 		[JsonPropertyName("Name")]
 		public string Name { get; set; } = null!;
 
-        public ICollection<Product> Products { get; set; }
+        public Size[] Sizes { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; } = null!;
 
     }
+
 }

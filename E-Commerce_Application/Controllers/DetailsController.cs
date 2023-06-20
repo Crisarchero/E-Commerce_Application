@@ -25,7 +25,8 @@ namespace E_Commerce_Application.Controllers
 		{
 			var product = await _productService.GetAsync(id);
 			var reviews = await _reviewService.GetAsync(id);
-
+			var categories = await _categoryService.GetAsync();
+			
 			if (product is null)
 			{
 			
@@ -33,6 +34,8 @@ namespace E_Commerce_Application.Controllers
 			}
 			ViewBag.Product = product;
 			ViewBag.Reviews = reviews;
+			ViewBag.Categories = categories;
+
 			return View("Index");
 		}
 	}

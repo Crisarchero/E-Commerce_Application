@@ -13,7 +13,9 @@ namespace E_Commerce_Application.Models
         public string Id { get; set; } = null!;
 
         [ForeignKey("Category")]
-        public string CategoryID { get; set; } = null!;     
+        public string CategoryID { get; set; } = null!;
+
+        public string CategoryName { get; set; } = null!;
         
      
 

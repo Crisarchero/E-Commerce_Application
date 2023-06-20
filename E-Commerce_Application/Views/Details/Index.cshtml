@@ -3,22 +3,43 @@
 	var product = ViewBag.Product;
 
 }
-<div>
-	<img src ="~/Images/@product.ImgName" alt=""/>
-	<h2>@product.Name</h2>
+
+<div class ="container-fluid">
+
+<div class="row">
+	<img class= "col-sm-6" src ="~/Images/@product.ImgName" alt=""/>
+	<div class="col">
+		<h2 class="text-center">@product.Name</h2>
+		<p class="display-3">@product.Description</p>
+		<form>
+				@foreach(Category category in ViewBag.categories)
+				{
+					if(category.Id == product.CategoryID)
+					{
+						foreach(Size size in category.Sizes)
+						{
+							<input type ="radio" name="size" value="@size.SizeType"/>
+						}
+					}
+				}
+			<input name="quantity" type ="number"/>
+			<button type="submit">Add to Cart</button>
+		</form>
+	</div>
 </div>
 
 <div>
-	<h3>Reviews</h3>
-	<ul>
+	<h3 class="">Reviews</h3>
+	<ul class="list-group list-unstyled">
 		@foreach (Review review in ViewBag.Reviews)
 		{
-			<li>
-				<h4>@review.UserName</h4>
+			<li class="list-group-item">
+				<h4 class="fw-bold">@review.UserName</h4>
 				<p>
 					@review.CommentText
 				</p>
 			</li>
 		}
 	</ul>
+</div>
 </div>
