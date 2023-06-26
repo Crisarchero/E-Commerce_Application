@@ -31,8 +31,8 @@ function submitCartItem() {
 
 cart.addEventListener('load',()=>{
     var sessionItems = Object.keys(sessionStorage)
-    for (let i = 0; i < sessionItems.length, i++){
-        if (sessionItems[i].includes("CartItem"){
+    for (let i = 0; i < sessionItems.length, i++;){
+        if (sessionItems[i].includes("CartItem")){
                 let currentItemJson = sessionStorage.getItem(sessionItems[i])
                 let cartItem = JSON.parse(currentItemJson)
                 cart.innerHTML =+ `<li>${cartItem.itemName}<li>`
