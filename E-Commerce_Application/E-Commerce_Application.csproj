@@ -16,9 +16,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
     <PackageReference Include="MongoDB.Driver" Version="2.19.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Cart.cshtml\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 

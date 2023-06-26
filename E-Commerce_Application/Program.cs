@@ -14,6 +14,11 @@ builder.Services.Configure<BakeryShopSettings>(
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<ReviewService>();
+
+builder.Services.AddDistributedMemoryCache();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +35,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

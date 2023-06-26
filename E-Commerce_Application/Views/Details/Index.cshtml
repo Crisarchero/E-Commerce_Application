@@ -10,7 +10,7 @@
 	<img class= "col-sm-6" src ="~/Images/@product.ImgName" alt=""/>
 	<div class="col">
 		<h2 class="text-center">@product.Name</h2>
-		<p class="display-3">@product.Description</p>
+		<p>@product.Description</p>
 		<form>
 				@foreach(Category category in ViewBag.categories)
 				{
@@ -18,15 +18,22 @@
 					{
 						foreach(Size size in category.Sizes)
 						{
-							<input type ="radio" name="size" value="@size.SizeType"/>
+							<input id ="size" type ="radio" name="size" value="@size.SizeType"/>
 						}
 					}
 				}
-			<input name="quantity" type ="number"/>
-			<button type="submit">Add to Cart</button>
+			
+			<input id="itemId" name="itemId" type="hidden" value="@product.Id"/>
+			<input id = "name" name="name" type = "hidden" value="@product.Name" />
+			<input id = "quantity" name="quantity" type ="number"/>
+			<button onClick ="submitCartItem">Add to Cart</button>
 		</form>
 	</div>
 </div>
+
+<p id="addedItem" class="hidden bg-success">
+	Added item to the cart!
+</p>
 
 <div>
 	<h3 class="">Reviews</h3>
