@@ -1,7 +1,11 @@
 ﻿
-sessionStorage.setItem('count', 0)
-let cart = document.getElementbyId("cart")
 
+
+//I want this counter to go up infinitely just to insure that each item has a unique end.
+sessionStorage.setItem('endCount', 0)
+
+let cart = document.getElementById("cart")
+let couter = document.getElementById("counter")
 function addCartItem(item, name, size, quantity) {
     const CartItem = {
         itemId: item,
@@ -10,9 +14,8 @@ function addCartItem(item, name, size, quantity) {
         quantity: quantity
     }
     const cartItemJson = JSON.stringify(CartItem)
-    sessionStorage.setItem("CartItem" + sessionStorage.getItem('count'), cartItemJson)
-    sessionStorage.setItem('count', sessionStorage.getItem('count') + 1)
-
+    sessionStorage.setItem("CartItem" + sessionStorage.getItem('endCount'), cartItemJson)
+    sessionStorage.setItem('endCount', parseInt(sessionStorage.getItem('endCount')) + 1)
 }
 
 function removeCartItem(itemName) {
@@ -29,16 +32,16 @@ function submitCartItem() {
 }
 
 
-cart.addEventListener('load',()=>{
+function getCartItems(){
     var sessionItems = Object.keys(sessionStorage)
-    for (let i = 0; i < sessionItems.length, i++;){
-        if (sessionItems[i].includes("CartItem")){
-                let currentItemJson = sessionStorage.getItem(sessionItems[i])
-                let cartItem = JSON.parse(currentItemJson)
-                cart.innerHTML =+ `<li>${cartItem.itemName}<li>`
+    for (let i = 0; i < sessionItems.length; i++){
+        if (sessionItems[i].includes(`CartItem`)) {
+            let currentItemJson = sessionStorage.getItem(sessionItems[i])
+            let cartItem = JSON.parse(currentItemJson)
+            cart.innerHTML += `<li class = "list-group-item">${cartItem['itemName']}</li>`
         }
+     
     }
-    let paragraph = document.getElementById("addedItem")
-
-    paragraph.classList.remove("hidden")
-})
+    counter.innerHTML = `Items in Cart: ${sessionItems.length-1}`
+  
+}

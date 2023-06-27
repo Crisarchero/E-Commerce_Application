@@ -20,7 +20,11 @@ namespace E_Commerce_Application.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+		public IActionResult Cart()
+		{
+			return View();
+		}
+		public IActionResult Privacy()
         {
             return View();
         }

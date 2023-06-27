@@ -26,12 +26,12 @@
 			<input id="itemId" name="itemId" type="hidden" value="@product.Id"/>
 			<input id = "name" name="name" type = "hidden" value="@product.Name" />
 			<input id = "quantity" name="quantity" type ="number"/>
-			<button onClick ="submitCartItem">Add to Cart</button>
+			<button onClick ="submitCartItem()">Add to Cart</button>
 		</form>
 	</div>
 </div>
 
-<p id="addedItem" class="hidden bg-success">
+<p id="addedItem" class="bg-success text-white visually-hidden">
 	Added item to the cart!
 </p>
 

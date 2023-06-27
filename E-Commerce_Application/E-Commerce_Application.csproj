@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Cart.cshtml\" />
+    <Folder Include="Views\Cart\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
