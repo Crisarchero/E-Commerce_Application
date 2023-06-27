@@ -14,8 +14,9 @@ function addCartItem(item, name, size, quantity) {
         quantity: quantity
     }
     const cartItemJson = JSON.stringify(CartItem)
-    sessionStorage.setItem("CartItem" + sessionStorage.getItem('endCount'), cartItemJson)
     sessionStorage.setItem('endCount', parseInt(sessionStorage.getItem('endCount')) + 1)
+    sessionStorage.setItem("CartItem" + sessionStorage.getItem('endCount'), cartItemJson)
+   
 }
 
 function removeCartItem(itemName) {
