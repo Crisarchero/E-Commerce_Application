@@ -11,22 +11,24 @@
 	<div class="col">
 		<h2 class="text-center">@product.Name</h2>
 		<p>@product.Description</p>
-		<form>
+		<form asp-controller = "Cart" asp-action="Add" method="post">
 				@foreach(Category category in ViewBag.categories)
 				{
 					if(category.Id == product.CategoryID)
 					{
 						foreach(Size size in category.Sizes)
 						{
-							<input id ="size" type ="radio" name="size" value="@size.SizeType"/>
+							<input class="rounded-circle" id="size" type="radio" name="size" value="@size.SizeType" />
+							<label class="me-1" for="size">@size.SizeType</label>
+		
+							
 						}
 					}
 				}
-			
-			<input id="itemId" name="itemId" type="hidden" value="@product.Id"/>
-			<input id = "name" name="name" type = "hidden" value="@product.Name" />
-			<input id = "quantity" name="quantity" type ="number"/>
-			<button onClick ="submitCartItem()">Add to Cart</button>
+			<input class="form-control" id = "quantity" name="quantity" type ="number"/>
+				<input  id="id" name="id" type="hidden" value="@product.Id"/>
+
+			<button type = "submit">Add to Cart</button>
 		</form>
 	</div>
 </div>

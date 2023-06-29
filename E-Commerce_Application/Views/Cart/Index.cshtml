@@ -8,9 +8,9 @@
 
 <div class="row">
 	<ul id="cart" class="list-unstyled list-group col-sm">
-		@foreach(CartItem cartItem in ViewBag.CartItems)
+		@foreach(var cartItem in ViewBag.CartItems)
 		{
-			<li>cartItem.Product.Name</li>
+			<li class="list-group-item">@cartItem.Product.Name</li>
 		}
 	</ul>
 <div class="col-sm-3">

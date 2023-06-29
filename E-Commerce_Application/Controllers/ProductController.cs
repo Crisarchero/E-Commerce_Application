@@ -43,7 +43,7 @@ namespace E_Commerce_Application.Controllers
 			var categoryList = await _categoryService.GetAsync();
 			if(productList.Count == 0)
 			{
-				ViewBag.Prodcuts = null;
+				ViewBag.Products = null;
 			}
 			else
 			{

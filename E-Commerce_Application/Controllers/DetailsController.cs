@@ -1,5 +1,6 @@
 ﻿using E_Commerce_Application.Data;
 using E_Commerce_Application.Models;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce_Application.Controllers
@@ -38,5 +39,6 @@ namespace E_Commerce_Application.Controllers
 
 			return View("Index");
 		}
+
 	}
 }
