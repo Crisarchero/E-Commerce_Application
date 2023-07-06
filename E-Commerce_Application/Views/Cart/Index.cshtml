@@ -1,7 +1,32 @@
 ﻿
 @{
 	ViewData["Title"] = "Cart";
+	decimal orderTotal = 0;
+	foreach(var cartItem in ViewBag.CartItems)
+	{
+		int size = cartItem.Size;
+		switch (size)
+		{
+			case 1:
+				decimal smallPrice = cartItem.Product.SmallPrice;
+				orderTotal = orderTotal + smallPrice;
+				break;
+			case 2:
+				decimal medPrice = cartItem.Product.MediumPrice;
+				orderTotal = orderTotal + medPrice;
+				break;
+			case 3:
+				decimal larPrice = cartItem.Product.LargePrice;
+				orderTotal = orderTotal + larPrice;
+				break;
+			case 4:
+				decimal exPrice = cartItem.Product.ExtraLargePrice;
+				orderTotal = orderTotal + exPrice;
+				break;
+	}
 }
+	}
+	
 <h2 id="counter"></h2>
 
 
@@ -10,12 +35,21 @@
 	<ul id="cart" class="list-unstyled list-group col-sm">
 		@foreach(var cartItem in ViewBag.CartItems)
 		{
-			<li class="list-group-item">@cartItem.Product.Name</li>
+			<li class="list-group-item m-2 p-3 d-sm-flex justify-content-between">
+				<h3>@cartItem.Product.Name  @cartItem.Size</h3>
+				<figure class ="w-25">
+				<img src="~/Images/@cartItem.Product.ImgName" alt="@cartItem.Product.Name" class="img-thumbnail">
+				</figure>
+				<form asp-controller="Cart" asp-action="Remove" method="post">
+					<input type ="hidden" name="name" value="@cartItem.Name"/>
+					<button class="btn btn-close" type="submit"></button>
+				</form>
+			</li>
 		}
 	</ul>
 <div class="col-sm-3">
-	<span>Order Cost: <span id ="orderTotal"></span></span>
-	<span>Credit Card: </span>
+	<span>Order Cost: <span id ="orderTotal">$@orderTotal</span></span><br />
+	<span>Credit Card: <span id="orderTotal"></span></span><br />
 	<button class="btn btn-primary">Place Order</button>
 </div>
 

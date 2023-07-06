@@ -19,33 +19,9 @@ namespace E_Commerce_Application.Controllers
 			_productService = productService;
 			
 		}
-		public void getCartItems()
-		{
-			List<Object> CartList = new List<Object>();
 
-			if (HttpContext.Session.GetInt32("counter") == null)
-			{
-				HttpContext.Session.SetInt32("counter", 0);
-
-			}
-			
-			foreach (var key in HttpContext.Session.Keys) {
-				
-				if (key.Contains("CartItem")){
-
-					var CartItemJson = HttpContext.Session.GetString(key);
-					var CartItem = JsonConvert.DeserializeObject(CartItemJson);
-					if(CartItem == null) {
-						continue;					
-					}
-					CartList.Add(CartItem);
-				}
 	
-			}
-			ViewBag.CartItems = CartList;
-		}
-
-		public void setCartItems(Product product, string size, int quantity)
+		public void setCartItems(Product product, int size, int quantity)
 		{
 			var counterObject = HttpContext.Session.GetInt32("counter");
 			int counter;
@@ -57,7 +33,8 @@ namespace E_Commerce_Application.Controllers
 			{
 				counter = (int)counterObject;
 			}
-			CartItem cartItem = new CartItem(product, size, quantity);
+			var name = "CartItem" + counter;
+			CartItem cartItem = new CartItem(product, name, size, quantity);
 			var cartItemJson = JsonConvert.SerializeObject(cartItem);
 			HttpContext.Session.SetString("CartItem" + counter, cartItemJson);
 			HttpContext.Session.SetInt32("counter", counter + 1);
@@ -67,7 +44,7 @@ namespace E_Commerce_Application.Controllers
 		public async Task<IActionResult> Add()
 		{
 			var id = Request.Form["id"];			
-			var size = Request.Form["size"];
+			var sizeString = Request.Form["size"];
 			var quantityString = Request.Form["quantity"];
 			if(quantityString == "")
 			{
@@ -75,14 +52,14 @@ namespace E_Commerce_Application.Controllers
 			}
 			
 			int quantity = Int32.Parse(quantityString);
-			
-			
+			int size = Int32.Parse(sizeString);
+		
 			Product product = await _productService.GetAsync(id);
 			if(quantity <= 0)
 			{
 				quantity = 1;
 			}
-			if (product == null || size == "")
+			if (product == null || size == null)
 			{
 				return View("Error");
 			}
@@ -91,6 +68,52 @@ namespace E_Commerce_Application.Controllers
 				setCartItems(product, size, quantity);
 				return View();
 			}
+		}
+
+		public void getCartItems()
+		{
+			List<Object> CartList = new List<Object>();
+
+
+			if (HttpContext.Session.GetInt32("counter") == null)
+			{
+				HttpContext.Session.SetInt32("counter", 0);
+
+			}
+
+			foreach (var key in HttpContext.Session.Keys)
+			{
+
+				if (key.Contains("CartItem"))
+				{
+
+					var CartItemJson = HttpContext.Session.GetString(key);
+					if (CartItemJson == "")
+					{
+						continue;
+					}
+					object CartItem = JsonConvert.DeserializeObject(CartItemJson);
+					if (CartItem == null)
+					{
+						continue;
+					}
+					else
+					{
+						CartList.Add(CartItem);
+					}
+				}
+
+			}
+
+			ViewBag.CartItems = CartList;
+		}
+
+		public IActionResult Remove()
+		{
+			var name = Request.Form["name"];
+			HttpContext.Session.SetString(name, "");
+			getCartItems();
+			return View("Index");
 		}
 
 		public IActionResult Index()
