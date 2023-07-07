@@ -2,39 +2,70 @@
 @{
 	ViewData["Title"] = "Cart";
 	decimal orderTotal = 0;
+	decimal totalDiscount = 0;
+
 	foreach(var cartItem in ViewBag.CartItems)
 	{
 		int size = cartItem.Size;
+		decimal price = 0;
+		decimal discountPerc = cartItem.Product.DiscountPercentage;
+		decimal discountAmount = 0;
+
+
 		switch (size)
 		{
 			case 1:
+
 				decimal smallPrice = cartItem.Product.SmallPrice;
+				price = smallPrice;
 				orderTotal = orderTotal + smallPrice;
 				break;
 			case 2:
 				decimal medPrice = cartItem.Product.MediumPrice;
+				price = medPrice;
 				orderTotal = orderTotal + medPrice;
 				break;
 			case 3:
 				decimal larPrice = cartItem.Product.LargePrice;
+				price = larPrice;
 				orderTotal = orderTotal + larPrice;
 				break;
 			case 4:
 				decimal exPrice = cartItem.Product.ExtraLargePrice;
+				price = exPrice;
 				orderTotal = orderTotal + exPrice;
 				break;
+
+
+
+		}
+		if (discountPerc > 0)
+		{
+			discountAmount = price * discountPerc;
+			price = price - discountAmount;
+			totalDiscount = totalDiscount + discountAmount;
+		}
+
+		orderTotal = orderTotal + price;
+
 	}
+	decimal beforeDiscount = orderTotal + totalDiscount;
 }
-	}
 	
 <h2 id="counter"></h2>
 
 
 
-<div class="row">
-	<ul id="cart" class="list-unstyled list-group col-sm">
-		@foreach(var cartItem in ViewBag.CartItems)
+<div class=" container-fluid row">
+	
+		@if (ViewBag.CartItems.Count == 0)
 		{
+			<p class="display-4 col-sm">The cart is empty!  Items you add will show up here.</p>
+		}
+		else
+		{
+		foreach(var cartItem in ViewBag.CartItems)
+		{<ul id="cart" class="list-unstyled list-group col-sm">
 			<li class="list-group-item m-2 p-3 d-sm-flex justify-content-between">
 				<h3>@cartItem.Product.Name</h3><br/>
 				<figure class ="w-25">
@@ -44,12 +75,23 @@
 					<input type ="hidden" name="name" value="@cartItem.Name"/>
 					<button class="btn btn-close" type="submit"></button>
 				</form>
-			</li>
+				</li>
+			</ul>
 		}
-	</ul>
-<div class="col-sm-3">
-	<span>Order Cost: <span id ="orderTotal">$@orderTotal</span></span><br />
-	<span>Credit Card: <span id="orderTotal"></span></span><br />
+		}
+	
+<div class="col-sm-2 m-1">
+	<span>
+			Order Cost:<br/>
+			@if(totalDiscount != 0)
+			{
+			<span class="text-warning text-decoration-line-through">$@beforeDiscount</span>  <br />
+			<span class="text-success mx-1">- $@totalDiscount</span><br />
+			}
+			$@orderTotal
+			
+	</span><br/>
+	<span>Credit Card: ********** <span id="orderTotal"></span></span><br/>
 	<button class="btn btn-primary">Place Order</button>
 </div>
 
