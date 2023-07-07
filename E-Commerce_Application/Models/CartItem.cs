@@ -7,13 +7,13 @@ namespace E_Commerce_Application.Models
 		public Product Product { get; set; }
 		public string Name { get; set; }
 		public int Size { get; set; }
-		public int Quantity { get; set; }
-		public CartItem(Product product, string name, int size, int quantity)
+	
+		public CartItem(Product product, string name, int size)
 		{
 			Product = product;
 			Name = name;
 			Size = size;
-			Quantity = quantity;
+			
 		}
 	}
 }

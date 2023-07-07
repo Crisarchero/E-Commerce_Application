@@ -36,7 +36,7 @@
 		@foreach(var cartItem in ViewBag.CartItems)
 		{
 			<li class="list-group-item m-2 p-3 d-sm-flex justify-content-between">
-				<h3>@cartItem.Product.Name  @cartItem.Size</h3>
+				<h3>@cartItem.Product.Name</h3><br/>
 				<figure class ="w-25">
 				<img src="~/Images/@cartItem.Product.ImgName" alt="@cartItem.Product.Name" class="img-thumbnail">
 				</figure>

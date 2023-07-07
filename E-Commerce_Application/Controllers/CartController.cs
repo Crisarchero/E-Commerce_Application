@@ -33,11 +33,16 @@ namespace E_Commerce_Application.Controllers
 			{
 				counter = (int)counterObject;
 			}
-			var name = "CartItem" + counter;
-			CartItem cartItem = new CartItem(product, name, size, quantity);
-			var cartItemJson = JsonConvert.SerializeObject(cartItem);
-			HttpContext.Session.SetString("CartItem" + counter, cartItemJson);
-			HttpContext.Session.SetInt32("counter", counter + 1);
+			for(var i = 0; i < quantity; i++)
+			{
+				var name = "CartItem" + counter;
+				CartItem cartItem = new CartItem(product, name, size);
+				var cartItemJson = JsonConvert.SerializeObject(cartItem);
+				HttpContext.Session.SetString("CartItem" + counter, cartItemJson);
+				HttpContext.Session.SetInt32("counter", counter + 1);
+				counter = counter + 1;
+			}
+	
 		}
 		
 		
@@ -46,6 +51,7 @@ namespace E_Commerce_Application.Controllers
 			var id = Request.Form["id"];			
 			var sizeString = Request.Form["size"];
 			var quantityString = Request.Form["quantity"];
+
 			if(quantityString == "")
 			{
 				quantityString = "0";
