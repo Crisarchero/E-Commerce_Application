@@ -21,7 +21,7 @@ namespace E_Commerce_Application.Controllers
 		}
 
 	
-		public void setCartItems(Product product, int size, int quantity)
+		public void setCartItems(Product product, int size, int quantity, string sizeName)
 		{
 			var counterObject = HttpContext.Session.GetInt32("counter");
 			int counter;
@@ -36,11 +36,11 @@ namespace E_Commerce_Application.Controllers
 			for(var i = 0; i < quantity; i++)
 			{
 				var name = "CartItem" + counter;
-				CartItem cartItem = new CartItem(product, name, size);
+				CartItem cartItem = new CartItem(product, name, size, sizeName);
 				var cartItemJson = JsonConvert.SerializeObject(cartItem);
 				HttpContext.Session.SetString("CartItem" + counter, cartItemJson);
 				HttpContext.Session.SetInt32("counter", counter + 1);
-				counter = counter + 1;
+				counter++;
 			}
 	
 		}
@@ -49,8 +49,13 @@ namespace E_Commerce_Application.Controllers
 		public async Task<IActionResult> Add()
 		{
 			var id = Request.Form["id"];			
-			var sizeString = Request.Form["size"];
+			string sizeInfo = Request.Form["size"];
 			var quantityString = Request.Form["quantity"];
+			
+			
+			string[] sizeWords = sizeInfo.Split("|");
+			string sizeString = sizeWords[0];
+			string sizeName = sizeWords[1];
 
 			if(quantityString == "")
 			{
@@ -71,7 +76,7 @@ namespace E_Commerce_Application.Controllers
 			}
 			else
 			{
-				setCartItems(product, size, quantity);
+				setCartItems(product, size, quantity, sizeName);
 				return View();
 			}
 		}

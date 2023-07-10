@@ -18,15 +18,14 @@
 					{
 						foreach(Size size in category.Sizes)
 						{
-							<input class="rounded-circle" id="size" type="radio" name="size" value="@size.Number" />
+							<input class="rounded-circle" id="size" type="radio" name="size" value="@size.Number|@size.SizeType" required />
 							<label class="me-1" for="size">@size.SizeType</label>
-		
 							
 						}
 					}
 				}
-			<input class="form-control" id = "quantity" name="quantity" type ="number"/>
-				<input  id="id" name="id" type="hidden" value="@product.Id"/>
+			<input class="form-control w-25" id = "quantity" name="quantity" type ="number"/>
+			<input  id="id" name="id" type="hidden" value="@product.Id"/>
 
 			<button type = "submit">Add to Cart</button>
 		</form>
