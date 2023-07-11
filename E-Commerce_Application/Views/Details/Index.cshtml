@@ -4,50 +4,91 @@
 
 }
 
-<div class ="container-fluid">
 
-<div class="row">
-	<img class= "col-sm-6" src ="~/Images/@product.ImgName" alt=""/>
-	<div class="col">
-		<h2 class="text-center">@product.Name</h2>
-		<p>@product.Description</p>
-		<form asp-controller = "Cart" asp-action="Add" method="post">
-				@foreach(Category category in ViewBag.categories)
-				{
-					if(category.Id == product.CategoryID)
+
+<div class="d-flex flex-column">
+	<div class="p-1 container-fluid row">
+
+		<div class="col-sm-6">
+			<img id="detail-img" src ="~/Images/@product.ImgName" alt=""/>
+		</div>
+		<div class="col">
+			<h2>@product.Name</h2>
+			<p>@product.Description</p>
+			<form asp-controller = "Cart" asp-action="Add" method="post">
+					@foreach(Category category in ViewBag.categories)
 					{
-						foreach(Size size in category.Sizes)
+						if(category.Id == product.CategoryID)
 						{
-							<input class="rounded-circle" id="size" type="radio" name="size" value="@size.Number|@size.SizeType" required />
-							<label class="me-1" for="size">@size.SizeType</label>
+							foreach(Size size in category.Sizes)
+							{	<label class="me-1" for="size">@size.SizeType</label>
+								<input class="rounded-circle" id="size" type="radio" name="size" value="@size.Number|@size.SizeType" required /><br />
+						
 							
+							}
 						}
 					}
-				}
-			<input class="form-control w-25" id = "quantity" name="quantity" type ="number"/>
-			<input  id="id" name="id" type="hidden" value="@product.Id"/>
+				
+				
+					<input class="form-control my-3" title ="Quantity of order" id="quantity" name="quantity" type="number" size=2 min="1" max="99" value ="1"/>
+				
+			
+					<input  id="id" name="id" type="hidden" value="@product.Id"/>
 
-			<button type = "submit">Add to Cart</button>
-		</form>
+				<button class="btn btn-primary my-4 w-50 float-end" type = "submit">Add to Cart</button><br />
+			</form>
+
+		</div>
 	</div>
+
+
+
+<article class="my-5 mx-3">
+			<h3 class="">Reviews</h3>
+			<ul class="my-4 list-group list-unstyled">
+				@if (ViewBag.Reviews.Count > 0)
+				{
+					@foreach (Review review in ViewBag.Reviews)
+					{
+						<li class="list-group-item">
+							<h4 class="fw-bold">@review.UserName</h4>
+							<p>
+								@review.CommentText
+							</p>
+						</li>
+					}
+				}
+				else
+				{
+					<li class="list-group-item">There are no reviews!</li>
+				}
+			</ul>
+			<h4 class="my-2">Add a Review</h4>
+			<form>
+				<div class="input-group input-group-sm my-3 w-25">
+					<label for="userName" class="input-group-text">Name</label>
+					<input class="form-control form-control-sm " type="text" name="userName" maxLength="100" required /><br />
+				</div>
+				
+				<div class="input-group input-group-sm my-3 w-25">
+					<label for="rating" class="input-group-text">Rating</label>
+				<input class="form-control w-50" type="range" name="rating" min="1" max="5" /><br />
+				</div>
+
+
+				<textarea class="form-control" name="review"></textarea><br />
+				
+				
+				<input id="id" name="id" type="hidden" value="@product.Id" />
+				<button class="btn btn-primary w-25 float-end "type="submit">Submit Review</button>
+			</form>
+
+</article>
+		
 </div>
 
 <p id="addedItem" class="bg-success text-white visually-hidden">
 	Added item to the cart!
 </p>
 
-<div>
-	<h3 class="">Reviews</h3>
-	<ul class="list-group list-unstyled">
-		@foreach (Review review in ViewBag.Reviews)
-		{
-			<li class="list-group-item">
-				<h4 class="fw-bold">@review.UserName</h4>
-				<p>
-					@review.CommentText
-				</p>
-			</li>
-		}
-	</ul>
-</div>
-</div>
+

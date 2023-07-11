@@ -18,3 +18,16 @@ body {
  margin:0;
   margin-bottom: 60px;
 }
+
+input[type=number]{
+    width:80px;
+}
+
+label[for=size]{
+    width:125px;
+}
+
+#detail-img{
+    width:100%;
+    height:contain;
+}
