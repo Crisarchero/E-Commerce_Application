@@ -46,40 +46,7 @@ namespace E_Commerce_Application.Controllers
 		}
 		
 		
-		public async Task<IActionResult> Add()
-		{
-			var id = Request.Form["id"];			
-			string sizeInfo = Request.Form["size"];
-			var quantityString = Request.Form["quantity"];
-			
-			
-			string[] sizeWords = sizeInfo.Split("|");
-			string sizeString = sizeWords[0];
-			string sizeName = sizeWords[1];
-
-			if(quantityString == "")
-			{
-				quantityString = "0";
-			}
-			
-			int quantity = Int32.Parse(quantityString);
-			int size = Int32.Parse(sizeString);
 		
-			Product product = await _productService.GetAsync(id);
-			if(quantity <= 0)
-			{
-				quantity = 1;
-			}
-			if (product == null || size == null)
-			{
-				return View("Error");
-			}
-			else
-			{
-				setCartItems(product, size, quantity, sizeName);
-				return View();
-			}
-		}
 
 		public void getCartItems()
 		{
@@ -118,7 +85,40 @@ namespace E_Commerce_Application.Controllers
 
 			ViewBag.CartItems = CartList;
 		}
+	public async Task<IActionResult> Add()
+		{
+			var id = Request.Form["id"];			
+			string sizeInfo = Request.Form["size"];
+			var quantityString = Request.Form["quantity"];
+			
+			
+			string[] sizeWords = sizeInfo.Split("|");
+			string sizeString = sizeWords[0];
+			string sizeName = sizeWords[1];
 
+			if(quantityString == "")
+			{
+				quantityString = "0";
+			}
+			
+			int quantity = Int32.Parse(quantityString);
+			int size = Int32.Parse(sizeString);
+		
+			Product product = await _productService.GetAsync(id);
+			if(quantity <= 0)
+			{
+				quantity = 1;
+			}
+			if (product == null || size == null)
+			{
+				return View("Error");
+			}
+			else
+			{
+				setCartItems(product, size, quantity, sizeName);
+				return View();
+			}
+		}
 		public IActionResult Remove()
 		{
 			var name = Request.Form["name"];
@@ -132,6 +132,8 @@ namespace E_Commerce_Application.Controllers
 			getCartItems();
 			return View();
 		}
+
+		
 		
 
 	}

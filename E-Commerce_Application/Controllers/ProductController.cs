@@ -1,6 +1,7 @@
 ﻿using E_Commerce_Application.Data;
 using E_Commerce_Application.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace E_Commerce_Application.Controllers
 {
@@ -66,6 +67,38 @@ namespace E_Commerce_Application.Controllers
 			await _productService.CreateAsync(newProduct);
 
 			return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
+		}
+
+		public void PostProductData()
+		{
+			var name = Request.Form["productName"];
+			var categoryId = Request.Form["category"];
+			var description = Request.Form["description"];
+
+			var imgName = Request.Form["imgName"];
+
+
+
+			var sPrice = Request.Form["smallPrice"];
+			var mPrice = Request.Form["mediumPrice"];
+			var lPrice = Request.Form["largePrice"];
+			var exLPrice = Request.Form["exLargePrice"];
+
+			var dPercentage = Request.Form["discountPercentage"];
+
+			decimal smallPrice = Convert.ToDecimal(sPrice);
+			decimal mediumPrice = Convert.ToDecimal(mPrice);
+			decimal	largePrice = Convert.ToDecimal(lPrice);
+			decimal exLargePrice = Convert.ToDecimal(exLPrice);
+
+			decimal discountPercentage = Convert.ToDecimal(dPercentage);
+
+			Product product = new Product(name, description, categoryId, smallPrice, mediumPrice, largePrice, exLargePrice, discountPercentage, imgName);
+
+
+			Post(product);
+
+
 		}
 
 		//Updating a product.

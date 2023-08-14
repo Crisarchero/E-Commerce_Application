@@ -1,0 +1,71 @@
+﻿@*
+   
+*@
+@{
+}
+
+<form>
+	<label for="adminName">Username:</label>
+	<input id ="adminName" type ="text" name="adminName"/>
+	
+	<label for ="password">Password:</label>
+	<input type ="adminPassword" name="password"/>
+
+	<button type="submit" onclick="login"></button>
+</form>
+
+
+
+<div>
+	<h2>Add Product</h2>
+	<form asp-controller="Product" asp-action="PostProductData" method="post">
+		<label for="productName">Product Name:</label>
+		<input class="form-control" type ="text" name="productName" required /><br />
+		
+		<label for ="category">Select a Category:</label>
+		<select  class="form-select" name="category" required>
+			@{
+				foreach (Category category in ViewBag.Categories)
+				{
+					<option value="@category.Id">@category.Name</option>
+				}
+			}
+		</select>
+		<br />
+
+
+		<label for="smallPrice">Price of Small</label>
+		<input class="form-control" type="text" name="smallPrice" required />
+		<br />
+
+		<label for="mediumPrice">Price of Medium:</label>
+		<input class="form-control" type="text" name="mediumPrice" required />
+		<br />
+
+		<label for="largePrice">Price of Large:</label>
+		<input class="form-control" type="text" name="largePrice" required />
+		<br />
+
+		<label for="exLargePrice">Price of Extra Large:</label>
+		<input class="form-control" type="text" name="exLargePrice" required />
+		<br />
+
+		<label for="imgName">Name of Image(excluding image type):</label>
+		<input class="form-control" type="text" name="imgName"  required/>
+		<br />
+
+		<label for="discountPercentage">Discount Percentage:</label>
+		<input class="form-control" type="text" name="discountPercentage" />
+		<br />
+
+
+		<label for="description">Description: </label>
+		<textarea class="form-control-plaintext" name="description" required></textarea>
+		<br />
+
+		<button type="submit">Add Product</button>
+	</form>
+</div>
+<script>
+
+</script>

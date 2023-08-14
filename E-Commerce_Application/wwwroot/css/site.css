@@ -31,3 +31,7 @@ label[for=size]{
     width:100%;
     height:contain;
 }
+
+#ratingValue{
+    font-size:24px;
+}
